@@ -114,49 +114,55 @@ function makeResponsive() {
     var xlabel;
 
     if (chosenXAxis === 'poverty') {
-      xlabel = 'Poverty: ';
+      xlabel = 'Poverty';
     }
     else if (chosenXAxis === 'age') {
-      xlabel = 'Age: ';
+      xlabel = 'Age';
     }
     else {
-      xlabel = 'Income: ';
+      xlabel = 'Income';
     }
 
     var yLabel;
 
     if (chosenYAxis === 'healthcare') {
-      yLabel = 'Healthcare: '
+      yLabel = 'Healthcare'
     }
     else if (chosenYAxis === 'smokes') {
-      yLabel = 'Smokes: '
+      yLabel = 'Smokes'
     }
     else {
-      yLabel = 'Obesity: '
+      yLabel = 'Obesity'
     }
 
-    // d
+    // defining dynamic tooltip according to axis selection
     var toolTip = d3.tip()
       .attr("class", "tooltip")
       .offset([80, -60])
       .attr('class', 'toolTip')
       .html(function(d) {
-        if (chosenXAxis === 'age') {
-
+        if (chosenXAxis === 'poverty') {
+          return (`${d.state}<hr>${yLabel}: ${d[chosenYAxis]}%<br>${xlabel}: ${d[chosenXAxis]}%`);
         }
-        return (`${d.state}<br>${label} ${d[chosenXAxis]}`);
+        else {
+          return (`${d.state}<hr>${yLabel}: ${d[chosenYAxis]}%<br>${xlabel}: ${d[chosenXAxis]}`);
+        }
       });
 
     circlesGroup.call(toolTip);
-
+    
+    // onmouseover event listener
     circlesGroup.on("mouseover", function(d) {
       toolTip.show(d);
     })
       // onmouseout event
-      .on("mouseout", function(d, index) {
+      .on("mouseout", function(d, i) {
         toolTip.hide(d);
       });
-
+    
+    // circlesTextGroup.on("mouseover", function(d) {
+    //  toolTip.show(d);
+    //
     return circlesGroup;
   }
 
@@ -166,7 +172,6 @@ function makeResponsive() {
 
     // parsing the data to get numeric values
     data.forEach(function(data) {
-      data.id = +data.id;
       data.poverty = +data.poverty;
       data.age = +data.age;
       data.income = +data.income;
@@ -179,9 +184,7 @@ function makeResponsive() {
     var xLinearScale = xScale(data, chosenXAxis);
 
     // Create y scale function
-    var yLinearScale = d3.scaleLinear()
-      .domain([d3.min(data, d => d.obesity) * 0.9, d3.max(data, d => d.obesity) * 1.05])
-      .range([height, 0]);
+    var yLinearScale = yScale(data, chosenXAxis);
 
     // Create initial axis functions
     var bottomAxis = d3.axisBottom(xLinearScale);
