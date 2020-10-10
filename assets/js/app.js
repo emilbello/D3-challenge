@@ -54,7 +54,7 @@ function makeResponsive() {
     
         return xLinearScale;
     }
-
+    
     function yScale(data, chosenYAxis) {
         // creating the scales
         var yLinearScale = d3.scaleLinear()
