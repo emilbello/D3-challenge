@@ -110,35 +110,30 @@ function makeResponsive() {
     function updateToolTip(chosenXAxis, chosenYAxis, circlesGroup) {
         // getting xlabel
         if (chosenXAxis === 'poverty') {
-          var xlabel = 'Poverty';
+          var xlabel = 'Poverty (%)';
         }
         else if (chosenXAxis === 'age') {
-          var xlabel = 'Age';
+          var xlabel = 'Age (Median)';
         }
         else {
-          var xlabel = 'Income';
+          var xlabel = 'Income (Median)';
         }
         // getting ylabel
         if (chosenYAxis === 'healthcare') {
-            var yLabel = 'No Healthcare';
+            var yLabel = 'No Healthcare (%)';
         }
         else if (chosenYAxis === 'obesity') {
-            var yLabel = 'Obesity';
+            var yLabel = 'Obesity (%)';
         }
         else {
-            var yLabel = 'Smokers';
+            var yLabel = 'Smokers (%)';
         }
-
+        // initiating the toolip
         var toolTip = d3.tip()
             .attr('class', 'd3-tip')
-            .offset([8, -6])
+            .offset([80, -60])
             .html(function(d) {
-                if (chosenXAxis === 'poverty') {
-                    return (`${d.state}<hr color='white'>${yLabel}: ${d[chosenYAxis]}%<br>${xlabel}: ${d[chosenXAxis]}%`);
-                }
-                else {
-                    return (`${d.state}<hr color='white'>${yLabel}: ${d[chosenYAxis]}%<br>${xlabel}: ${d[chosenXAxis]}`);
-                }
+                return (`${d.state}<br>${yLabel}: ${d[chosenYAxis]}<br>${xlabel}: ${d[chosenXAxis]}`);
             });
       
         circlesGroup.call(toolTip);
