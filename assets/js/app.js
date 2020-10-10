@@ -134,10 +134,10 @@ function makeResponsive() {
             .offset([8, -6])
             .html(function(d) {
                 if (chosenXAxis === 'poverty') {
-                    return (`${d.state}<hr>${yLabel}: ${d[chosenYAxis]}%<br>${xlabel}: ${d[chosenXAxis]}%`);
+                    return (`${d.state}<hr color='white'>${yLabel}: ${d[chosenYAxis]}%<br>${xlabel}: ${d[chosenXAxis]}%`);
                 }
                 else {
-                    return (`${d.state}<hr>${yLabel}: ${d[chosenYAxis]}%<br>${xlabel}: ${d[chosenXAxis]}`);
+                    return (`${d.state}<hr color='white'>${yLabel}: ${d[chosenYAxis]}%<br>${xlabel}: ${d[chosenXAxis]}`);
                 }
             });
       
@@ -185,22 +185,23 @@ function makeResponsive() {
             .data(data)
             .enter()
             .append('circle')
+            .classed('stateCircle', true)
             .attr('cx', d => xLinearScale(d[chosenXAxis]))
             .attr('cy', d => yLinearScale(d[chosenYAxis]))
-            .attr('fill', 'blue')
-            .attr('r', 20)
-            .attr('opacity', 0.4);
+            .attr('fill', 'lightblue')
+            .attr('r', 15)
+            .attr('opacity', 0.8);
 
         var textGroup = chartGroup.selectAll(".stateText")
             .data(data)
             .enter()
             .append('text')
-            .classed('state', true)
+            .classed('stateText', true)
             .attr('x', d => xLinearScale(d[chosenXAxis]))
             .attr('y', d => yLinearScale(d[chosenYAxis]))
-            .attr('dy', 3)
+            .attr('dy', ".35em")
             .attr('font-size', '15px')
-            .text(function(d) {return d.abbr});
+            .text(d => d.abbr);
 
         var xLabelsGroup = chartGroup.append('g')
             .attr('transform', `translate(${width / 2}, ${height + 20})`);
@@ -210,6 +211,7 @@ function makeResponsive() {
             .attr('y', 20)
             .attr('value', 'poverty') // value to grab for event listener
             .classed('active', true)
+            .classed('aText', true)
             .text("In Poverty (%)");
           
         var ageLabel = xLabelsGroup.append("text")
@@ -217,6 +219,7 @@ function makeResponsive() {
             .attr('y', 50)
             .attr('value', 'age') // value to grab for event listener
             .classed('inactive', true)
+            .classed('aText', true)
             .text("Age (Median)");
       
         var incomeLabel = xLabelsGroup.append("text")
@@ -224,6 +227,7 @@ function makeResponsive() {
             .attr('y', 80)
             .attr('value', 'income') // value to grab for event listener
             .classed('inactive', true)
+            .classed('aText', true)
             .text("Household Income (Median)");
 
         var yLabelsGroup = chartGroup.append("g")
@@ -236,6 +240,7 @@ function makeResponsive() {
             .attr('value', 'healthcare')
             .attr("transform", "rotate(-90)")
             .classed('active', true)
+            .classed('aText', true)
             .text('Lacks Healthcare (%)');
           
         var smokesLabel = yLabelsGroup.append('text')
@@ -245,6 +250,7 @@ function makeResponsive() {
             .attr('value', 'smokes')
             .attr("transform", "rotate(-90)")
             .classed('inactive', true)
+            .classed('aText', true)
             .text('Smokes (%)');
       
         var obesityLabel = yLabelsGroup.append('text')
@@ -254,6 +260,7 @@ function makeResponsive() {
             .attr('value', 'obesity')
             .attr("transform", "rotate(-90)")
             .classed('inactive', true)
+            .classed('aText', true)
             .text('Obesity (%)');
 
         // updateToolTip function above csv import
