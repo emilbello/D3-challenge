@@ -138,8 +138,8 @@ function makeResponsive() {
       
         circlesGroup.call(toolTip);
       
-        circlesGroup.on("mouseover", toolTip.show)
-            .on("mouseout", toolTip.hide);
+        circlesGroup.on('mouseover', toolTip.show)
+            .on('mouseout', toolTip.hide);
               
         return circlesGroup;
       }
@@ -201,32 +201,32 @@ function makeResponsive() {
         var xLabelsGroup = chartGroup.append('g')
             .attr('transform', `translate(${width / 2}, ${height + 20})`);
 
-        var povertyLabel = xLabelsGroup.append("text")
+        var povertyLabel = xLabelsGroup.append('text')
             .attr('x', 0)
             .attr('y', 20)
             .attr('value', 'poverty') // value to grab for event listener
             .classed('active', true)
             .classed('aText', true)
-            .text("In Poverty (%)");
+            .text('In Poverty (%)');
           
-        var ageLabel = xLabelsGroup.append("text")
+        var ageLabel = xLabelsGroup.append('text')
             .attr('x', 0)
             .attr('y', 50)
             .attr('value', 'age') // value to grab for event listener
             .classed('inactive', true)
             .classed('aText', true)
-            .text("Age (Median)");
+            .text('Age (Median)');
       
-        var incomeLabel = xLabelsGroup.append("text")
+        var incomeLabel = xLabelsGroup.append('text')
             .attr('x', 0)
             .attr('y', 80)
             .attr('value', 'income') // value to grab for event listener
             .classed('inactive', true)
             .classed('aText', true)
-            .text("Household Income (Median)");
+            .text('Household Income (Median)');
 
-        var yLabelsGroup = chartGroup.append("g")
-            .attr("transform", `translate(${0 - margin.left/4}, ${(height/2)})`);
+        var yLabelsGroup = chartGroup.append('g')
+            .attr('transform', `translate(${0 - margin.left/4}, ${(height/2)})`);
 
         var healthcareLabel = yLabelsGroup.append('text')
             .attr('y', 0 - 20)
@@ -261,10 +261,10 @@ function makeResponsive() {
         // updateToolTip function above csv import
         var circlesGroup = updateToolTip(chosenXAxis, chosenYAxis, circlesGroup);
 
-        xLabelsGroup.selectAll("text")
-            .on("click", function() {
+        xLabelsGroup.selectAll('text')
+            .on('click', function() {
                 //get value of selection
-                var value = d3.select(this).attr("value");
+                var value = d3.select(this).attr('value');
 
                 // checking if value changed from current selection
                 if (value != chosenXAxis) {
@@ -325,10 +325,10 @@ function makeResponsive() {
             });
 
         //y axis labels event listener
-        yLabelsGroup.selectAll("text")
-            .on("click", function() {
+        yLabelsGroup.selectAll('text')
+            .on('click', function() {
                 //get value of selection
-                var value = d3.select(this).attr("value");
+                var value = d3.select(this).attr('value');
 
                 //check if value is same as current axis
                 if (value != chosenYAxis) {
